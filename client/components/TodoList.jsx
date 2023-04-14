@@ -1,6 +1,6 @@
 import React from "react";
 
-function Todo(props) {
+function TodoList(props) {
   return (
     <li className="flex w-full flex-row items-center justify-start bg-white p-2">
       <input type="radio" id="list" />
@@ -9,4 +9,4 @@ function Todo(props) {
   );
 }
 
-export default Todo;
+export default TodoList;

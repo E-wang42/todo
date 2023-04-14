@@ -2,17 +2,11 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import sun from "../public/icon-sun.svg";
-import Todo from "../components/Todo";
+import TodoList from "../components/TodoList";
 
 export default function Home() {
   const [description, setDescription] = useState("");
   console.log(description);
-  // function handleSubmit(e) {
-  //   e.preventDefault();
-  //   const input = e.target.value;
-  //   console.log(input);
-  //   setTodo(input);
-  // }
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -23,8 +17,6 @@ export default function Home() {
         body: JSON.stringify({ description }),
       });
       console.log(response);
-      // const res = await axios.post("http://localhost:8000/todo", body);
-      // console.log(res);
     } catch (err) {
       console.error(err);
     }
@@ -49,26 +41,16 @@ export default function Home() {
               type="text"
               placeholder="Create new todo..."
               autoComplete="off"
-              onChange={(e) => setTodo(e.target.value)}
+              onChange={(e) => setDescription(e.target.value)}
               value={description}
               name="text"
             />
           </form>
           <div className="relative mt-8 w-full ring-2">
             <ul className="relative flex w-full flex-col items-start justify-center">
-              {/* <li className="flex w-full flex-row items-center justify-start bg-white p-2">
-                <input type="radio" id="list" />
-                <label htmlFor="list">{state}</label>
-              </li> */}
-              <Todo />
+              <TodoList />
             </ul>
           </div>
-          {/* <Image
-          className="overflow-x-hidden object-cover"
-          alt="background image"
-          src={bg}
-          fill={false}
-        /> */}
         </div>
       </div>
     </div>

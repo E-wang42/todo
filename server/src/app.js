@@ -48,6 +48,7 @@ app.get("/todo/:id", async (req, res) => {
 app.post("/todo", async (req, res) => {
   try {
     const { description } = req.body;
+    console.log(description);
     const newTodo = await pool.query(
       "INSERT INTO todo (description, created_on) VALUES($1, CURRENT_TIMESTAMP) RETURNING *",
       [description]
