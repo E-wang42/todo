@@ -1,8 +1,9 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, Suspense } from "react";
 import Image from "next/image";
 import sun from "../public/icon-sun.svg";
-import TodoList from "../components/TodoList";
+import Loading from "./loading";
+const TodoList = React.lazy(() => import("../components/TodoList"));
 
 export default function Home() {
   const [description, setDescription] = useState("");
@@ -56,7 +57,9 @@ export default function Home() {
           </form>
           <div className="relative mt-8 w-full ring-2">
             <ul className="relative flex w-full flex-col items-start justify-center">
-              <TodoList />
+              <Suspense fallback={<Loading />}>
+                <TodoList />
+              </Suspense>
             </ul>
           </div>
         </div>
