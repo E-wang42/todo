@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Loading from "../app/loading";
+import { RiEdit2Fill } from "react-icons/ri";
+import { TfiClose } from "react-icons/tfi";
 
 function TodoList() {
   const [todoData, setTodoData] = useState([]);
@@ -18,6 +20,19 @@ function TodoList() {
     getTodoList();
   }, []);
 
+  async function removeTodoItem(id) {
+    try {
+      await fetch(`http://localhost:8000/todo/${id}`, {
+        method: "DELETE",
+        headers: { "Content-Type": "application/json" },
+      });
+
+      setTodoData(todoData.filter((item) => item.todo_id !== id));
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+  // console.log(todoData);
   return (
     <>
       {todoData ? (
@@ -25,10 +40,20 @@ function TodoList() {
           return (
             <li
               key={i}
-              className="flex w-full flex-row items-center justify-start bg-white p-2"
+              className="flex w-full flex-row items-center bg-white p-2"
             >
-              <input type="checkbox" id={i} />
-              <label htmlFor={i}>{items.description}</label>
+              <input type="checkbox" id={items.todo_id} />
+              <label htmlFor={items.todo_id}>{items.description}</label>
+              <button className="ml-auto pr-2 hover:opacity-50" title="Edit">
+                <RiEdit2Fill />
+              </button>
+              <button
+                onClick={() => removeTodoItem(items.todo_id)}
+                className="hover:opacity-50"
+                title="Remove"
+              >
+                <TfiClose />
+              </button>
             </li>
           );
         })

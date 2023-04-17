@@ -2,13 +2,15 @@
 import React, { useState, useEffect, useRef, Suspense } from "react";
 import Image from "next/image";
 import sun from "../public/icon-sun.svg";
+import moon from "../public/icon-moon.svg";
 import Loading from "./loading";
 const TodoList = React.lazy(() => import("../components/TodoList"));
 
 export default function Home() {
   const [description, setDescription] = useState("");
-  const inputRef = useRef(); //input focus on load
+  const inputRef = useRef();
 
+  // focus input on load
   useEffect(() => {
     inputRef.current.focus();
   }, []);
