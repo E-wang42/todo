@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Loading from "../app/loading";
 
-function TodoList(props) {
+function TodoList() {
   const [todoData, setTodoData] = useState([]);
 
   useEffect(() => {

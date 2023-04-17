@@ -56,7 +56,7 @@ export default function Home() {
             />
           </form>
           <div className="relative mt-8 w-full ring-2">
-            <ul className="relative flex w-full flex-col items-start justify-center">
+            <ul className="relative flex w-full flex-col items-start justify-center divide-y-2">
               <Suspense fallback={<Loading />}>
                 <TodoList />
               </Suspense>
