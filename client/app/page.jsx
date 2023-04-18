@@ -1,35 +1,14 @@
 "use client";
-import React, { useState, useEffect, useRef, Suspense } from "react";
+import React, { Suspense, useState } from "react";
 import Image from "next/image";
 import sun from "../public/icon-sun.svg";
 import moon from "../public/icon-moon.svg";
 import Loading from "./loading";
+import TodoInput from "../components/TodoInput";
 const TodoList = React.lazy(() => import("../components/TodoList"));
 
 export default function Home() {
-  const [description, setDescription] = useState("");
-  const inputRef = useRef();
-
-  // focus input on load
-  useEffect(() => {
-    inputRef.current.focus();
-  }, []);
-
-  async function handleSubmit(e) {
-    e.preventDefault();
-    try {
-      const response = await fetch("http://localhost:8000/todo", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ description }),
-      });
-      console.log(response);
-    } catch (err) {
-      console.error(err);
-    } finally {
-      setDescription("");
-    }
-  }
+  const [darkMode, setDarkMode] = useState(null);
 
   return (
     <div>
@@ -40,31 +19,20 @@ export default function Home() {
             <h1 className="text-xl font-bold tracking-[0.6rem] text-white">
               TODO
             </h1>
-            <button>
-              <Image src={sun} alt="sun" />
+            <button
+              onClick={() => {
+                setDarkMode(!darkMode);
+              }}
+            >
+              {darkMode ? (
+                <Image src={sun} alt="sun" />
+              ) : (
+                <Image src={moon} alt="moon" />
+              )}
             </button>
           </div>
-          <form onSubmit={handleSubmit} className="w-full">
-            <input
-              required
-              className="w-full p-2 focus:outline-none"
-              type="text"
-              placeholder="Create new todo..."
-              autoComplete="off"
-              onChange={(e) => setDescription(e.target.value)}
-              value={description}
-              name="text"
-              ref={inputRef}
-            />
-            <button
-              className="absolute mt-[0.6rem] -translate-x-12 border-fuchsia-600"
-              id="submit"
-              type="submit"
-            >
-              Add
-            </button>
-          </form>
-          <div className="relative mt-8 w-full ring-2">
+          <TodoInput />
+          <div className="relative mt-8 w-full ">
             <ul className="relative flex w-full flex-col items-start justify-center divide-y-2">
               <Suspense fallback={<Loading />}>
                 <TodoList />
