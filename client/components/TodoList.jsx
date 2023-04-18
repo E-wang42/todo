@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useEffect } from "react";
 import Loading from "../app/loading";
 import { RiEdit2Fill } from "react-icons/ri";
@@ -32,6 +33,19 @@ function TodoList() {
       console.error(err.message);
     }
   }
+
+  async function editTodoItem(id) {
+    try {
+      await fetch(`http://localhost:8000/todo/${id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(todoData),
+      });
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+
   // console.log(todoData);
   return (
     <>

@@ -56,6 +56,13 @@ export default function Home() {
               name="text"
               ref={inputRef}
             />
+            <button
+              className="absolute mt-[0.6rem] -translate-x-12 border-fuchsia-600"
+              id="submit"
+              type="submit"
+            >
+              Add
+            </button>
           </form>
           <div className="relative mt-8 w-full ring-2">
             <ul className="relative flex w-full flex-col items-start justify-center divide-y-2">
