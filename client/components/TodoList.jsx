@@ -37,6 +37,11 @@ function TodoList() {
     }
   }
 
+  function handleClick(e) {
+    e.stopPropagation();
+    setChecked(!checked);
+  }
+
   // console.log(todoData);
   return (
     <>
@@ -51,7 +56,7 @@ function TodoList() {
                 <>
                   <label
                     onClick={() => {
-                      setChecked(!checked);
+                      handleClick;
                     }}
                     className={`ml-2 flex ${
                       checked ? "line-through" : "no-underline"
@@ -61,10 +66,9 @@ function TodoList() {
                     <input
                       className="items-center rounded-full border-white"
                       type="checkbox"
-                      // onChange={() => setChecked(!checked)}
+                      // onChange={() => handleClick}
                       id={item.todo_id}
-                      // value={checked}
-                      // checked={checked}
+                      value={checked}
                       name="checkbox"
                     />
                     {item.description}
@@ -74,8 +78,9 @@ function TodoList() {
                 <TodoEdit todo={item} />
               )}
               <button
-                onClick={() => {
-                  setEditButton(true);
+                onClick={(e) => {
+                  e.stopPropagation();
+                  setEditButton(!editButton);
                 }}
                 className="ml-auto pr-2 transition-opacity hover:opacity-50"
                 title="Edit"
