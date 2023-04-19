@@ -26,10 +26,10 @@ function TodoInput() {
 
   return (
     <>
-      <form onSubmit={handleSubmit} className="w-full">
+      <form onSubmit={handleSubmit} className="z-10 w-full">
         <input
           required
-          className="w-full p-2 focus:outline-none"
+          className="w-full rounded-sm p-2 indent-2 shadow-md focus:outline-none"
           type="text"
           placeholder="Create new todo..."
           autoComplete="off"

@@ -12,7 +12,7 @@ app.use(
     methods: ["GET", "POST", "PUT", "DELETE"],
   })
 );
-app.use(morgan("dev")); //combined
+app.use(morgan("combined")); //combined / dev
 app.use(express.json());
 
 pool.connect();

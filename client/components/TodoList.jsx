@@ -7,7 +7,7 @@ import TodoEdit from "./TodoEdit";
 function TodoList() {
   const [todoData, setTodoData] = useState([]);
   const [editButton, setEditButton] = useState(false);
-  const [completed, setCompleted] = useState(false);
+  const [checked, setChecked] = useState(false);
 
   //fetches todo list
   useEffect(() => {
@@ -49,19 +49,29 @@ function TodoList() {
             >
               {!editButton ? (
                 <>
-                  <input type="checkbox" id={item.todo_id} />
                   <label
                     onClick={() => {
-                      setCompleted(!completed);
+                      setChecked(!checked);
                     }}
-                    className={`${completed ? "line-through" : "no-underline"}`}
+                    className={`ml-2 flex ${
+                      checked ? "line-through" : "no-underline"
+                    }`}
                     htmlFor={item.todo_id}
                   >
+                    <input
+                      className="items-center rounded-full border-white"
+                      type="checkbox"
+                      // onChange={() => setChecked(!checked)}
+                      id={item.todo_id}
+                      // value={checked}
+                      // checked={checked}
+                      name="checkbox"
+                    />
                     {item.description}
                   </label>
                 </>
               ) : (
-                <TodoEdit />
+                <TodoEdit todo={item} />
               )}
               <button
                 onClick={() => {
