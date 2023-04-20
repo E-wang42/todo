@@ -1,13 +1,13 @@
 import React, { useState, useEffect } from "react";
 import Loading from "../app/loading";
+import TodoEdit from "./TodoEdit";
+import ListItem from "./ListItem";
 import { RiEdit2Fill } from "react-icons/ri";
 import { TfiClose } from "react-icons/tfi";
-import TodoEdit from "./TodoEdit";
 
 function TodoList() {
   const [todoData, setTodoData] = useState([]);
   const [editButton, setEditButton] = useState(false);
-  const [checked, setChecked] = useState(false);
 
   //fetches todo list
   useEffect(() => {
@@ -37,12 +37,6 @@ function TodoList() {
     }
   }
 
-  function handleClick(e) {
-    e.stopPropagation();
-    setChecked(!checked);
-  }
-
-  // console.log(todoData);
   return (
     <>
       {todoData ? (
@@ -53,27 +47,7 @@ function TodoList() {
               className="flex w-full flex-row items-center bg-white p-2"
             >
               {!editButton ? (
-                <>
-                  <label
-                    onClick={() => {
-                      handleClick;
-                    }}
-                    className={`ml-2 flex ${
-                      checked ? "line-through" : "no-underline"
-                    }`}
-                    htmlFor={item.todo_id}
-                  >
-                    <input
-                      className="items-center rounded-full border-white"
-                      type="checkbox"
-                      // onChange={() => handleClick}
-                      id={item.todo_id}
-                      value={checked}
-                      name="checkbox"
-                    />
-                    {item.description}
-                  </label>
-                </>
+                <ListItem id={item.todo_id} description={item.description} />
               ) : (
                 <TodoEdit todo={item} />
               )}

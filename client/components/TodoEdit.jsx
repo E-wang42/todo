@@ -9,7 +9,7 @@ function TodoEdit(props) {
       await fetch(`http://localhost:8000/todo/${updateTodo.todo_id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(updateTodo),
+        body: JSON.stringify({ updateTodo }),
       });
     } catch (err) {
       console.error(err.message);
