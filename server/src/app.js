@@ -22,7 +22,9 @@ pool.connect();
 // get all todo
 app.get("/todo", async (req, res) => {
   try {
-    const todoAll = await pool.query("SELECT * FROM todo");
+    const todoAll = await pool.query(
+      "SELECT * FROM todo ORDER BY todo_id DESC"
+    );
     res.json(todoAll.rows);
   } catch (err) {
     console.log(err.message);

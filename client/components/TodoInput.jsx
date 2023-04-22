@@ -4,6 +4,7 @@ function TodoInput() {
   const [description, setDescription] = useState("");
   const inputRef = useRef(null);
 
+  // post new item
   async function handleSubmit(e) {
     e.preventDefault();
     try {
@@ -12,7 +13,7 @@ function TodoInput() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ description }),
       });
-      // window.location = "/";
+      window.location = "/";
     } catch (err) {
       console.error(err);
     } finally {

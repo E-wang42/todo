@@ -4,10 +4,13 @@ import TodoEdit from "./TodoEdit";
 import ListItem from "./ListItem";
 import { RiEdit2Fill } from "react-icons/ri";
 import { TfiClose } from "react-icons/tfi";
+import Tippy from "@tippyjs/react";
+import "tippy.js/dist/tippy.css";
+// import Buttons from "./Buttons";
 
 function TodoList() {
   const [todoData, setTodoData] = useState([]);
-  const [editButton, setEditButton] = useState(false);
+  const [editButton, setEditButton] = useState(true);
 
   //fetches todo list
   useEffect(() => {
@@ -37,6 +40,11 @@ function TodoList() {
     }
   }
 
+  function handleClick(e) {
+    e.stopPropagation();
+    setEditButton(!editButton);
+  }
+
   return (
     <>
       {todoData ? (
@@ -46,28 +54,43 @@ function TodoList() {
               key={item.todo_id}
               className="flex w-full flex-row items-center bg-white p-2"
             >
-              {!editButton ? (
+              {editButton ? (
                 <ListItem id={item.todo_id} description={item.description} />
               ) : (
-                <TodoEdit todo={item} />
+                <TodoEdit todo={item} edit={editButton} />
               )}
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setEditButton(!editButton);
-                }}
-                className="ml-auto pr-2 transition-opacity hover:opacity-50"
-                title="Edit"
-              >
-                <RiEdit2Fill />
-              </button>
-              <button
-                onClick={() => removeTodoItem(item.todo_id)}
-                className="transition-opacity hover:opacity-50"
-                title="Remove"
-              >
-                <TfiClose />
-              </button>
+              {editButton && (
+                <div className="ml-auto self-center">
+                  <Tippy
+                    content={
+                      <span className="rounded bg-slate-800 p-2 text-xs text-yellow-500 opacity-80">
+                        Edit
+                      </span>
+                    }
+                  >
+                    <button
+                      onClick={handleClick}
+                      className="pr-2 transition-opacity hover:opacity-50"
+                    >
+                      <RiEdit2Fill />
+                    </button>
+                  </Tippy>
+                  <Tippy
+                    content={
+                      <span className="rounded bg-slate-800 p-2 text-xs text-red-400 opacity-80">
+                        Remove
+                      </span>
+                    }
+                  >
+                    <button
+                      onClick={() => removeTodoItem(item.todo_id)}
+                      className="transition-opacity hover:opacity-50"
+                    >
+                      <TfiClose />
+                    </button>
+                  </Tippy>
+                </div>
+              )}
             </li>
           );
         })

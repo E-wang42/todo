@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+import { RxUpdate } from "react-icons/rx";
+import Tippy from "@tippyjs/react";
 
 function TodoEdit(props) {
   const [updateTodo, setUpdateTodo] = useState(props.todo);
+  const [editButton, setEditButton] = useState(props.edit);
 
   async function editTodoItem(e) {
     e.preventDefault();
@@ -9,7 +12,7 @@ function TodoEdit(props) {
       await fetch(`http://localhost:8000/todo/${updateTodo.todo_id}`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ updateTodo }),
+        body: JSON.stringify(updateTodo),
       });
     } catch (err) {
       console.error(err.message);
@@ -24,7 +27,10 @@ function TodoEdit(props) {
 
   return (
     <>
-      <form onSubmit={editTodoItem}>
+      <form
+        className="flex w-full flex-row items-center"
+        onSubmit={editTodoItem}
+      >
         <input
           onChange={handleChange}
           name="description"
@@ -32,7 +38,23 @@ function TodoEdit(props) {
           id={updateTodo.todo_id}
           type="text"
         />
-        <button type="submit">update</button>
+        <Tippy
+          content={
+            <span className="rounded bg-slate-800 p-2 text-xs text-white opacity-80">
+              Update
+            </span>
+          }
+        >
+          <button
+            className="ml-auto"
+            onClick={() => {
+              setEditButton(!editButton);
+            }}
+            type="submit"
+          >
+            <RxUpdate />
+          </button>
+        </Tippy>
       </form>
     </>
   );
