@@ -14,7 +14,7 @@ function ListItem(props) {
     <>
       <input
         onClick={handleClick}
-        className="items-center rounded-full border-white"
+        className=""
         type="checkbox"
         id={props.id}
         value={checked}
