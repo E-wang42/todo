@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { RxUpdate } from "react-icons/rx";
 
 function EditModal(props) {
   const [state, setState] = useState(true);
@@ -31,13 +32,7 @@ function EditModal(props) {
             </button>
           </div>
           <div className="mx-auto max-w-sm space-y-3 py-3 text-center">
-            <h4 className="text-lg font-medium text-gray-800">
-              Sign up for our newsletter
-            </h4>
-            <p className="text-[15px] text-gray-600">
-              Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
-              nisi ut aliquip ex ea commodo consequat.
-            </p>
+            <h4 className="text-lg font-medium text-gray-800">Edit Todo</h4>
             <form onSubmit={(e) => e.preventDefault()}>
               <div className="relative">
                 <svg

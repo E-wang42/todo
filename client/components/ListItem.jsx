@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import checkMark from "../public/icon-check.svg";
 
 function ListItem(props) {
   const [checked, setChecked] = useState(false);
@@ -14,7 +15,7 @@ function ListItem(props) {
     <>
       <input
         onClick={handleClick}
-        className=""
+        className="h-6 w-6 rounded-full accent-purple-500"
         type="checkbox"
         id={props.id}
         value={checked}

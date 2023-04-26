@@ -43,7 +43,7 @@ function TodoList() {
 
   function handleClick(e) {
     e.stopPropagation();
-    setEditButton(true);
+    setEditButton(!editButton);
   }
 
   return (
