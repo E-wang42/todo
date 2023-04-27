@@ -93,7 +93,7 @@ function TodoList() {
       ) : (
         <Loading />
       )}
-      {editButton && <EditModal />}
+      {editButton && <EditModal data={todoData} edit={editButton} />}
     </>
   );
 }

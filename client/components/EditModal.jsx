@@ -3,6 +3,31 @@ import { RxUpdate } from "react-icons/rx";
 
 function EditModal(props) {
   const [state, setState] = useState(true);
+  const [todoData, setTodoData] = useState(props.data);
+  const [editButton, setEditButton] = useState(props.edit);
+
+  // console.log(todoData);
+
+  async function editTodoItem(e) {
+    e.preventDefault();
+    try {
+      await fetch(`http://localhost:8000/todo/${setTodoData.todo_id}`, {
+        method: "PUT",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(todoData),
+      });
+    } catch (err) {
+      console.error(err.message);
+    } finally {
+      setEditButton(!editButton);
+    }
+  }
+
+  function handleChange(e) {
+    setTodoData((prevState) => {
+      return { ...prevState, description: e.target.value };
+    });
+  }
 
   return state ? (
     <div className="fixed inset-0 z-10 overflow-y-auto">
@@ -33,30 +58,21 @@ function EditModal(props) {
           </div>
           <div className="mx-auto max-w-sm space-y-3 py-3 text-center">
             <h4 className="text-lg font-medium text-gray-800">Edit Todo</h4>
-            <form onSubmit={(e) => e.preventDefault()}>
+            <form onSubmit={editTodoItem}>
               <div className="relative">
-                <svg
-                  className="absolute inset-y-0 left-3 my-auto h-6 w-6 text-gray-400"
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  strokeWidth={1.5}
-                  stroke="currentColor"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75"
-                  />
-                </svg>
+                <RxUpdate className="absolute inset-y-0 left-3 my-auto h-6 w-6 text-gray-400" />
                 <input
+                  id={todoData.todo_id}
+                  name="description"
+                  onChange={handleChange}
+                  value={todoData.description}
                   type="text"
-                  placeholder="Enter your email"
                   className="w-full rounded-lg border bg-transparent py-2 pl-12 pr-3 text-gray-500 shadow-sm outline-none focus:border-indigo-600"
                 />
               </div>
-              <button className="mt-3 block w-full rounded-lg bg-indigo-600 px-4 py-3 text-center text-sm font-medium text-white ring-indigo-600 ring-offset-2 hover:bg-indigo-500 focus:ring-2 active:bg-indigo-700">
-                Subscribe
+              <button className="mt-3 flex w-full flex-row items-center justify-center gap-x-2 rounded-lg bg-indigo-600 px-4 py-3 text-center text-sm font-medium text-white ring-indigo-600 ring-offset-2 hover:bg-indigo-500 focus:ring-2 active:bg-indigo-700">
+                <RxUpdate />
+                <p>Edit</p>
               </button>
             </form>
           </div>

@@ -1,12 +1,15 @@
 "use client";
-import React, { Suspense, useState, lazy } from "react";
+import React, { Suspense, useState } from "react";
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import sun from "../public/icon-sun.svg";
 import moon from "../public/icon-moon.svg";
 import Loading from "./loading";
 import TodoInput from "../components/TodoInput";
 import EditModal from "../components/EditModal";
-const TodoList = lazy(() => import("../components/TodoList"));
+const TodoList = dynamic(() => import("../components/TodoList"), {
+  ssr: false,
+});
 
 export default function Home() {
   const [darkMode, setDarkMode] = useState(null);

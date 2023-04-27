@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Image from "next/image";
 import checkMark from "../public/icon-check.svg";
 
 function ListItem(props) {
