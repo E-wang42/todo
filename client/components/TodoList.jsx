@@ -1,3 +1,4 @@
+"use client";
 import React, { useState, useEffect } from "react";
 import Loading from "../app/loading";
 import TodoEdit from "./TodoEdit";
@@ -7,6 +8,12 @@ import { TfiClose } from "react-icons/tfi";
 import Tippy from "@tippyjs/react";
 import "tippy.js/dist/tippy.css";
 import EditModal from "./EditModal";
+import {
+  arrayMove,
+  SortableContext,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
+import { DndContext, closestCenter } from "@dnd-kit/core";
 // import Buttons from "./Buttons";
 
 function TodoList() {
@@ -46,54 +53,73 @@ function TodoList() {
     setEditButton(!editButton);
   }
 
+  function handleDragEnd(e) {
+    const { active, over } = e;
+    if (active.id !== over.id) {
+      setTodoData((items) => {
+        const activeIndex = items.indexOf(active.id);
+        const overIndex = items.indexOf(over.id);
+        return arrayMove(items, activeIndex, overIndex);
+      });
+    }
+  }
+
   return (
     <>
-      {todoData ? (
-        todoData.map((item) => {
-          return (
-            <li
-              key={item.todo_id}
-              className="flex w-full flex-row items-center bg-white p-2"
-            >
-              <ListItem id={item.todo_id} description={item.description} />
+      <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
+        {todoData ? (
+          todoData.map((item) => {
+            return (
+              <li
+                key={item.todo_id}
+                className="flex w-full flex-row items-center bg-white p-2"
+              >
+                <SortableContext
+                  items={item}
+                  strategy={verticalListSortingStrategy}
+                >
+                  <ListItem id={item.todo_id} description={item.description} />
+                </SortableContext>
 
-              <div className="ml-auto self-center">
-                <Tippy
-                  content={
-                    <span className="rounded bg-slate-800 p-2 text-xs text-yellow-500 opacity-80">
-                      Edit
-                    </span>
-                  }
-                >
-                  <button
-                    onClick={handleClick}
-                    className="pr-2 transition-opacity hover:opacity-50"
+                <div className="ml-auto flex flex-row">
+                  <Tippy
+                    content={
+                      <span className="rounded bg-slate-800 p-2 text-xs text-yellow-500 opacity-80">
+                        Edit
+                      </span>
+                    }
                   >
-                    <RiEdit2Fill />
-                  </button>
-                </Tippy>
-                <Tippy
-                  content={
-                    <span className="rounded bg-slate-800 p-2 text-xs text-red-400 opacity-80">
-                      Remove
-                    </span>
-                  }
-                >
-                  <button
-                    onClick={() => removeTodoItem(item.todo_id)}
-                    className="transition-opacity hover:opacity-50"
+                    <button
+                      onClick={handleClick}
+                      className="pr-2 transition-opacity hover:opacity-50"
+                    >
+                      <RiEdit2Fill />
+                    </button>
+                  </Tippy>
+                  <Tippy
+                    content={
+                      <span className="rounded bg-slate-800 p-2 text-xs text-red-400 opacity-80">
+                        Remove
+                      </span>
+                    }
                   >
-                    <TfiClose />
-                  </button>
-                </Tippy>
-              </div>
-            </li>
-          );
-        })
-      ) : (
-        <Loading />
-      )}
-      {editButton && <EditModal data={todoData} edit={editButton} />}
+                    <button
+                      onClick={() => removeTodoItem(item.todo_id)}
+                      className="transition-opacity hover:opacity-50"
+                    >
+                      <TfiClose />
+                    </button>
+                  </Tippy>
+                </div>
+              </li>
+            );
+          })
+        ) : (
+          <Loading />
+        )}
+
+        {editButton && <EditModal data={todoData} edit={editButton} />}
+      </DndContext>
     </>
   );
 }

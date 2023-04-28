@@ -1,3 +1,4 @@
+"use client";
 import React, { useState } from "react";
 import { RxUpdate } from "react-icons/rx";
 import Tippy from "@tippyjs/react";

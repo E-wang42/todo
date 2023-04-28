@@ -1,3 +1,4 @@
+"use client";
 import React, { useRef, useState, useEffect } from "react";
 
 function TodoInput() {
@@ -40,7 +41,7 @@ function TodoInput() {
           ref={inputRef}
         />
         <button
-          className="absolute mt-1 -translate-x-12 border-fuchsia-600 p-2 transition-opacity hover:opacity-50"
+          className="absolute -translate-x-12 border-fuchsia-600 p-2 transition-opacity hover:opacity-50"
           id="submit"
           type="submit"
         >
