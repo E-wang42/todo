@@ -1,12 +1,32 @@
-import { createContext, useState, useEffect } from "react";
+"use client";
+import { createContext, useContext, useState } from "react";
 
 export const TodoContext = createContext([]);
 
-const ToDoContextProvider = ({ children }) => {
+export const ToDoContextProvider = ({ children }) => {
   const [TodoData, setTodoData] = useState([]);
   const [editButton, setEditButton] = useState(true);
   const [darkMode, setDarkMode] = useState(null);
   const [updateTodo, setUpdateTodo] = useState(props.todo);
 
-  return <TodoContext.Provider value={{}}>{children}</TodoContext.Provider>;
+  return (
+    <TodoContext.Provider
+      value={{
+        TodoData,
+        setTodoData,
+        editButton,
+        setEditButton,
+        darkMode,
+        setDarkMode,
+        updateTodo,
+        setUpdateTodo,
+      }}
+    >
+      {children}
+    </TodoContext.Provider>
+  );
+};
+
+export const useTodoContext = () => {
+  useContext(TodoContext);
 };

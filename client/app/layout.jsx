@@ -1,5 +1,6 @@
 import "./globals.css";
 import { Josefin_Sans } from "next/font/google";
+import { ToDoContextProvider } from "../context/TodoContext";
 
 const font = Josefin_Sans({
   subsets: ["latin"],
@@ -15,7 +16,9 @@ export default function RootLayout({ children }) {
       */}
       <head />
       <body className={font.className}>
-        <main>{children}</main>
+        <main>
+          <ToDoContextProvider>{children}</ToDoContextProvider>
+        </main>
       </body>
     </html>
   );
