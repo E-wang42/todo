@@ -7,7 +7,7 @@ export const ToDoContextProvider = ({ children }) => {
   const [TodoData, setTodoData] = useState([]);
   const [editButton, setEditButton] = useState(true);
   const [darkMode, setDarkMode] = useState(null);
-  const [updateTodo, setUpdateTodo] = useState(props.todo);
+  // const [updateTodo, setUpdateTodo] = useState(todo);
 
   return (
     <TodoContext.Provider
@@ -18,8 +18,8 @@ export const ToDoContextProvider = ({ children }) => {
         setEditButton,
         darkMode,
         setDarkMode,
-        updateTodo,
-        setUpdateTodo,
+        // updateTodo,
+        // setUpdateTodo,
       }}
     >
       {children}

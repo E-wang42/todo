@@ -7,16 +7,22 @@ import { CSS } from "@dnd-kit/utilities";
 
 function ListItem(props) {
   const [checked, setChecked] = useState(false);
+
   const { attributes, listeners, setNodeRef, transform, transition } =
-    useSortable({ id: props.id });
+    useSortable({ id: props.description });
+
   const style = { transform: CSS.Transform.toString(transform), transition };
 
-  const handleClick = (e) => {
-    e.stopPropagation();
-    setChecked((prevState) => {
-      return !prevState;
-    });
-  };
+  // const handleClick = (e) => {
+  //   e.stopPropagation();
+  //   setChecked((prevState) => {
+  //     return !prevState;
+  //   });
+  // };
+
+  function handleOnChange() {
+    //something
+  }
 
   return (
     <div
@@ -27,7 +33,8 @@ function ListItem(props) {
       className="flex w-full flex-row items-center bg-white p-2"
     >
       <input
-        onClick={handleClick}
+        // onClick={handleClick}
+        onChange={handleOnChange}
         className="h-6 w-6 cursor-pointer rounded-full accent-purple-500"
         type="checkbox"
         id={props.id}

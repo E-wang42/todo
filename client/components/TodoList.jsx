@@ -14,6 +14,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { DndContext, closestCenter } from "@dnd-kit/core";
+import ListContainer from "./ListContainer";
 // import Buttons from "./Buttons";
 
 function TodoList() {
@@ -67,56 +68,15 @@ function TodoList() {
   return (
     <>
       <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-        {todoData ? (
-          todoData.map((item) => {
-            return (
-              <li
-                key={item.todo_id}
-                className="flex w-full flex-row items-center bg-white p-2"
-              >
-                <SortableContext
-                  items={item}
-                  strategy={verticalListSortingStrategy}
-                >
-                  <ListItem id={item.todo_id} description={item.description} />
-                </SortableContext>
-
-                <div className="ml-auto flex flex-row">
-                  <Tippy
-                    content={
-                      <span className="rounded bg-slate-800 p-2 text-xs text-yellow-500 opacity-80">
-                        Edit
-                      </span>
-                    }
-                  >
-                    <button
-                      onClick={handleClick}
-                      className="pr-2 transition-opacity hover:opacity-50"
-                    >
-                      <RiEdit2Fill />
-                    </button>
-                  </Tippy>
-                  <Tippy
-                    content={
-                      <span className="rounded bg-slate-800 p-2 text-xs text-red-400 opacity-80">
-                        Remove
-                      </span>
-                    }
-                  >
-                    <button
-                      onClick={() => removeTodoItem(item.todo_id)}
-                      className="transition-opacity hover:opacity-50"
-                    >
-                      <TfiClose />
-                    </button>
-                  </Tippy>
-                </div>
-              </li>
-            );
-          })
-        ) : (
-          <Loading />
-        )}
+        <SortableContext items={item} strategy={verticalListSortingStrategy}>
+          {todoData ? (
+            todoData.map((item) => {
+              return <ListContainer />;
+            })
+          ) : (
+            <Loading />
+          )}
+        </SortableContext>
 
         {editButton && <EditModal data={todoData} edit={editButton} />}
       </DndContext>
