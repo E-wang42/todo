@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Image from "next/image";
 import checkMark from "../public/icon-check.svg";
 import { useSortable } from "@dnd-kit/sortable";
@@ -24,6 +24,10 @@ function ListItem(props) {
     //something
   }
 
+  function handleClick() {
+    setChecked(!checked);
+  }
+
   return (
     <div
       ref={setNodeRef}
@@ -33,8 +37,8 @@ function ListItem(props) {
       className="flex w-full flex-row items-center bg-white p-2"
     >
       <input
-        // onClick={handleClick}
-        onChange={handleOnChange}
+        onClick={handleClick}
+        // onChange={handleOnChange}
         className="h-6 w-6 cursor-pointer rounded-full accent-purple-500"
         type="checkbox"
         id={props.id}
