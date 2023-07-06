@@ -1,7 +1,7 @@
 import React from "react";
 import ListItem from "./ListItem";
 
-function ListContainer() {
+function ListContainer(props) {
   return (
     <li
       key={item.todo_id}
@@ -18,7 +18,7 @@ function ListContainer() {
           }
         >
           <button
-            onClick={handleClick}
+            onClick={props.remove}
             className="pr-2 transition-opacity hover:opacity-50"
           >
             <RiEdit2Fill />
