@@ -71,7 +71,13 @@ function TodoList() {
         <SortableContext items={item} strategy={verticalListSortingStrategy}>
           {todoData ? (
             todoData.map((item) => {
-              return <ListContainer remove={removeTodoItem} />;
+              return (
+                <ListContainer
+                  item={item}
+                  remove={removeTodoItem}
+                  edit={handleClick}
+                />
+              );
             })
           ) : (
             <Loading />

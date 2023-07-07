@@ -4,10 +4,10 @@ import ListItem from "./ListItem";
 function ListContainer(props) {
   return (
     <li
-      key={item.todo_id}
+      key={props.item.todo_id}
       className="flex w-full flex-row items-center bg-white p-2"
     >
-      <ListItem id={item.todo_id} description={item.description} />
+      <ListItem id={props.item.todo_id} description={props.item.description} />
 
       <div className="ml-auto flex flex-row">
         <Tippy
@@ -18,7 +18,7 @@ function ListContainer(props) {
           }
         >
           <button
-            onClick={props.remove}
+            onClick={props.edit}
             className="pr-2 transition-opacity hover:opacity-50"
           >
             <RiEdit2Fill />
@@ -32,7 +32,7 @@ function ListContainer(props) {
           }
         >
           <button
-            onClick={() => removeTodoItem(item.todo_id)}
+            onClick={props.remove}
             className="transition-opacity hover:opacity-50"
           >
             <TfiClose />
